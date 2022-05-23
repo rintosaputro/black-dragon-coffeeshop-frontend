@@ -165,12 +165,16 @@ export default function ProductList () {
                 }
                 {productList.results.length > 0 && productList.results.map(data => {
                   const { name, price, image, id } = data;
+                  let resImg;
+                  if (image && (image?.split(':')[0] !== 'https')) {
+                    resImg = `http://${image}`;
+                  }
                   const noImage = 'localhost:5000/';
                   return (
                     <CardProduct
                       onClick={() => navigate(`${id}`)}
                       // image={image === noImage ? defaultImage : `http://${image}`}
-                      image={image || defaultImage}
+                      image={resImg || defaultImage}
                       name={name}
                       price={priceFormat(price)}
                       key={id}

@@ -30,7 +30,11 @@ export default function ProductDetails () {
     dispatch(setDataProduct(Number(id)));
   }, []);
 
-  const { name, price, description, stocks, id: idProduct } = productDetail.results;
+  const { name, price, description, stocks, id: idProduct, image } = productDetail.results;
+  let resImg;
+  if (image && (image?.split(':')[0] === 'localhost')) {
+    resImg = `http://${image}`;
+  }
 
   const handleInc = () => {
     if (dataChart.totalItem <= stocks) {
@@ -79,7 +83,7 @@ export default function ProductDetails () {
           <div className='col-12 col-lg-6'>
             <div className='text-center my-5'>
               <div className='d-inline-block position-relative'>
-                <div className='img-product' style={{ backgroundImage: `url(${productDetail.results.image || defaultImage})` }}></div>
+                <div className='img-product' style={{ backgroundImage: `url(${resImg || defaultImage})` }}></div>
                 <FiTrash2 className='trash bg-secondary p-2' />
               </div>
             </div>
