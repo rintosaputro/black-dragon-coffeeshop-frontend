@@ -77,9 +77,13 @@ export default function PaymentDetails () {
                   {paymentCharts.results && (paymentCharts.results.map((data, index) => {
                     const total = addCharts.results[index].totalItem * data.price;
                     totalPrc += total;
+                    let resImg;
+                    if (data.image && (data.image?.split(':')[0] === 'localhost')) {
+                      resImg = `http://${data.image}`;
+                    }
                     return <div key={index} className='d-flex my-2 flex-row align-items-center justify-content-between'>
                       <div className='d-flex flex-row'>
-                        <div className='img-product' style={{ backgroundImage: `url(${defaultImage})` }}></div>
+                        <div className='img-product' style={{ backgroundImage: `url(${resImg || defaultImage})` }}></div>
                         <div className='d-flex flex-column ps-3'>
                           <span>{data.name}</span>
                           <span>x {addCharts.results[index].totalItem}</span>
